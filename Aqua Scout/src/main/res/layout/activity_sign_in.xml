@@ -5,9 +5,17 @@
     android:gravity="center"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="Welcome!"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"/>
+
     <EditText
         android:id="@+id/usernameField"
-        android:hint="Username or Email"
+        android:hint="Username"
+        android:inputType="textEmailSubject"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"

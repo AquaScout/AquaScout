@@ -1,5 +1,6 @@
 package com.example.aquascout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,17 +8,46 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Tsunami on 4/14/2015.
  */
 public class SignInActivity extends ActionBarActivity {
 
+    EditText userName;
+    EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        Button signInButton = (Button) findViewById(R.id.signInButton);
+        signInButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                userName = (EditText) findViewById(R.id.usernameField);
+                password = (EditText) findViewById(R.id.passwordField);
+
+                if(userName.getText().toString().length() < 3)
+                {
+                    Toast.makeText(SignInActivity.this, "Username and/or password does not match", Toast.LENGTH_SHORT).show();
+                }
+                else if (password.getText().toString().length() < 6)
+                {
+                    Toast.makeText(SignInActivity.this, "Username and/or password does not match", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(SignInActivity.this, ResultsActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         TextView forgotPasswordButton = (TextView) findViewById(R.id.forgotPasswordLink);
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
