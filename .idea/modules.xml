@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/Aqua Scout.iml" filepath="$PROJECT_DIR$/app/Aqua Scout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Aqua Scout/Aqua Scout.iml" filepath="$PROJECT_DIR$/Aqua Scout/Aqua Scout.iml" />
       <module fileurl="file://$PROJECT_DIR$/AquaScout.iml" filepath="$PROJECT_DIR$/AquaScout.iml" />
     </modules>
   </component>

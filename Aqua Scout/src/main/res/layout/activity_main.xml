@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:src="@drawable/placeholder"
+        android:src="@drawable/aquascout_logo"
         android:layout_marginBottom="20dp"
         android:layout_width="300dp"
         android:layout_height="300dp" />

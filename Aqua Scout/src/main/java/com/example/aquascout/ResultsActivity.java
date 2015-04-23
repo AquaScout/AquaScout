@@ -6,17 +6,26 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 /**
  * Created by Tsunami on 4/22/2015.
  */
 public class ResultsActivity extends ActionBarActivity {
 
+    private ListView resultList;
+    private String[] results = new String[]{"Result 1", "Result 2", "Result 3",
+                "Result 4", "Result 5"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        resultList = (ListView) findViewById(R.id.resultList);
+        resultList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, results));
 
 
 
