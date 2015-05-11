@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import java.util.regex.Pattern;
 
-/**
- * Created by Tsunami on 4/14/2015.
- */
+import static com.example.aquascout.R.*;
+
+
 public class SignUpActivity extends ActionBarActivity {
 
     EditText userName;
@@ -27,17 +30,17 @@ public class SignUpActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(layout.activity_sign_up);
 
-        Button signUpButton = (Button) findViewById(R.id.signUpButton);
+        Button signUpButton = (Button) findViewById(id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                userName = (EditText) findViewById(R.id.usernameField);
-                email = (EditText) findViewById(R.id.emailField);
-                password = (EditText) findViewById(R.id.passwordField);
-                repeatPassword = (EditText) findViewById(R.id.repeatPasswordField);
+                userName = (EditText) findViewById(id.usernameField);
+                email = (EditText) findViewById(id.emailField);
+                password = (EditText) findViewById(id.passwordField);
+                repeatPassword = (EditText) findViewById(id.repeatPasswordField);
                 emailCheck = email.getText().toString();
 
 
@@ -59,9 +62,29 @@ public class SignUpActivity extends ActionBarActivity {
                 }
                 else
                 {
-                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                    Toast.makeText(SignUpActivity.this, "Account created. Please sign in", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
+                    ParseUser user = new ParseUser();
+                    user.setUsername(userName.getText().toString());
+                    user.setPassword(password.getText().toString());
+                    user.setEmail(email.getText().toString());
+
+                    user.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(com.parse.ParseException e) {
+                            if (e != null) {
+                                 // Show the error message
+                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            } else {
+                                // Start an intent for the dispatch activity
+                                Intent intent = new Intent(SignUpActivity.this, CheckLoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+
+                    //Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                    //Toast.makeText(SignUpActivity.this, "Account created. Please sign in", Toast.LENGTH_SHORT).show();
+                    //startActivity(intent);
                 }
 
             }

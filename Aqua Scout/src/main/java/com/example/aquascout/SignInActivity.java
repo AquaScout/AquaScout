@@ -1,5 +1,6 @@
 package com.example.aquascout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by Tsunami on 4/14/2015.
- */
-public class SignInActivity extends ActionBarActivity {
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
+public class SignInActivity extends Activity {
 
     EditText userName;
     EditText password;
@@ -43,8 +45,28 @@ public class SignInActivity extends ActionBarActivity {
                 }
                 else
                 {
-                    Intent intent = new Intent(SignInActivity.this, ResultsActivity.class);
-                    startActivity(intent);
+                    ParseUser.logInInBackground(userName.getText().toString(), password.getText().toString(), new LogInCallback()
+                    {
+                        @Override
+                        public void done(ParseUser user, ParseException e)
+                        {
+                            if (e != null)
+                            {
+                                // Show the error message
+                                Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                // Start an intent for the dispatch activity
+                                Intent intent = new Intent(SignInActivity.this, CheckLoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+
+                    //Intent intent = new Intent(SignInActivity.this, ResultsActivity.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -53,7 +75,7 @@ public class SignInActivity extends ActionBarActivity {
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, ForgotPasswordActivity.class);
+                Intent intent = new Intent(SignInActivity.this, NewFountainActivity.class);
                 startActivity(intent);
             }
         });
