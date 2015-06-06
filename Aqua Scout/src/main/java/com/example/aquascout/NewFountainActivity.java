@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,13 +25,13 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class NewFountainActivity extends Activity{
+public class NewFountainActivity extends ActionBarActivity {
 
     private EditText address;
     private EditText details;
     private EditText comments;
     private ParseGeoPoint geoPoint;
-    private int temp = 3;
+    private int temp = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,22 @@ public class NewFountainActivity extends Activity{
 
         Spinner tempSpinner = (Spinner) findViewById(R.id.temperatureSpinner);
 
-        AdapterView.OnItemSelectedListener onSpinner =
+        tempSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedItem, int pos, long id)
+            {
+                temp = pos;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+        /*AdapterView.OnItemSelectedListener onSpinner =
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(
@@ -55,7 +71,7 @@ public class NewFountainActivity extends Activity{
                     public void onNothingSelected(
                             AdapterView<?>  parent) {
                     }
-                };
+                };*/
 
         Button submit = (Button) findViewById(R.id.submitButton);
 
@@ -85,7 +101,7 @@ public class NewFountainActivity extends Activity{
                 review.setAddress(geoPoint);
                 review.setDetails(details.getText().toString());
                 review.setComment(comments.getText().toString());
-                review.setTemp(temp);
+                review.setTemp(temp + 1);
                 review.saveInBackground();
 
                 Intent intent = new Intent(NewFountainActivity.this, ResultsActivity.class);

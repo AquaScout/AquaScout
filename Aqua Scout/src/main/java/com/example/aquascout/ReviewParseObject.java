@@ -7,8 +7,10 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+
 @ParseClassName("Review")
-public class ReviewParseObject extends ParseObject{
+public class ReviewParseObject extends ParseObject implements Serializable{
 
     public ReviewParseObject(){}
 

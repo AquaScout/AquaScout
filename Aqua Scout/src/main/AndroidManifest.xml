@@ -37,6 +37,7 @@
         <activity android:name=".ResultsActivity"/>
         <activity android:name=".CheckLoginActivity"/>
         <activity android:name=".NewFountainActivity"/>
+        <activity android:name=".ReviewActivity"/>
     </application>
 
 
